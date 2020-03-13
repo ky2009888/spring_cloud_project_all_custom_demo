@@ -78,6 +78,11 @@
                 <artifactId>hutool-all</artifactId>
                 <version>5.2.2</version>
             </dependency>
+            <dependency>
+                <groupId>org.jliang.apps.cloud</groupId>
+                <artifactId>cloud_api_commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
