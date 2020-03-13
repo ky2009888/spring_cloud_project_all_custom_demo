@@ -34,12 +34,12 @@ public class PaymentController {
     public CommonResult<Payment> selectOne(Long id) {
         log.info("查询数据成功");
         Payment payment = this.paymentService.queryById(id);
+        log.info("数据查询结束了");
         if (payment != null) {
             return new CommonResult<Payment>(200, "查询成功", payment);
         } else {
             return new CommonResult<Payment>(200, "未查询到主键" + id + "对应的数据", payment);
         }
-
     }
 
     /**
