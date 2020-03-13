@@ -60,6 +60,11 @@
             <groupId>org.jliang.apps.cloud</groupId>
             <artifactId>cloud_api_commons</artifactId>
         </dependency>
+        <!--增加EUREKA的客户端-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
     </dependencies>
     <build>
 

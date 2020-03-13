@@ -10,6 +10,7 @@
         <module>cloud-provider-payment8001</module>
         <module>cloud-consumer-order8080</module>
         <module>cloud_api_commons</module>
+        <module>cloud-eureka-server-7001</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->

@@ -1,14 +1,27 @@
+#项目基础配置
 server:
   port: 8001
 spring:
   application:
     name: cloud-provider-payment8001
+  #数据源的配置
   datasource:
     username: root
     password: Qwer@#1234
     url: jdbc:mysql://localhost:13306/mydb?useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
+#mybatis的配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: org.jliang.apps.cloud.entity
+#eueka客户端的配置
+eureka:
+  client:
+    #表示当前项目要注册到eureka server上面
+    fetch-registry: true
+    #是否抓取已注册的信息，true表示抓取
+    fetchRegistry: true
+    #eureka server的地址
+    service-url:
+      defaultZone: http://localhost:7001/eureka
