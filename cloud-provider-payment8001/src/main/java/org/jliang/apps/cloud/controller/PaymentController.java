@@ -48,7 +48,7 @@ public class PaymentController {
      * @param payment 支付对象
      * @return CommonResult<Payment> 请求响应对象
      */
-    @PostMapping
+    @PostMapping("addPayment")
     public CommonResult<Payment> addPayment(Payment payment) {
         log.info("插入数据成功");
         Payment paymentResult = this.paymentService.insert(payment);
