@@ -1,7 +1,7 @@
 package org.jliang.apps.cloud.service.impl;
 
-import org.jliang.apps.cloud.entity.Payment;
 import org.jliang.apps.cloud.dao.PaymentDao;
+import org.jliang.apps.cloud.entity.Payment;
 import org.jliang.apps.cloud.service.PaymentService;
 import org.springframework.stereotype.Service;
 
