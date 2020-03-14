@@ -3,7 +3,7 @@ server:
   port: 8002
 spring:
   application:
-    name: cloud-provider-payment8002
+    name: cloud-provider-payment
   #数据源的配置
   datasource:
     username: root
@@ -25,3 +25,7 @@ eureka:
     #eureka server的地址
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  instance:
+    instance-id: payment8002
+    #ip地址显示
+    prefer-ip-address: true
