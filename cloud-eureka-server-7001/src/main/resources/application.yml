@@ -11,3 +11,6 @@ eureka:
       defaultZone: http://eureka7002.com:7002/eureka/
     #表示自己就是注册中心，进行实例维护，不需要检索服务
     fetch-registry: false
+    #false代表关闭自我保护机制
+    #server:
+    #enable-self-preservation: false
