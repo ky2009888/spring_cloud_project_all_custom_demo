@@ -1,0 +1,32 @@
+1、在服务端项目中的启动类中添加如下代码：
+@EnableDiscoveryClient
+2、在crontroller类中定义一个方法，打印相关信息:
+ /**
+     * 服务发现和注册.
+     */
+    @Resource
+    private DiscoveryClient discoveryClient;
+ /**
+      * 返回服务发现的信息
+      *
+      * @return Object
+      */
+     @GetMapping("discoveryInfo")
+     public Object discoveryInfo() {
+         List<String> services = discoveryClient.getServices();
+         for (String element : services
+         ) {
+             log.info("****************element:{}", element);
+         }
+         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PROVIDER-PAYMENT");
+         for (ServiceInstance service : instances
+         ) {
+             log.info("{},{},{},{},{}", service.getHost(), service.getInstanceId(), service.getUri(), service.getPort(), service.getScheme());
+         }
+         return discoveryClient;
+     }
+3、打印相关结果:
+2020-03-14 20:29:35.803  INFO 14312 --- [nio-8001-exec-1] o.j.a.c.controller.PaymentController     : ****************element:cloud-consumer-order80
+2020-03-14 20:29:35.803  INFO 14312 --- [nio-8001-exec-1] o.j.a.c.controller.PaymentController     : ****************element:cloud-provider-payment
+2020-03-14 20:29:35.803  INFO 14312 --- [nio-8001-exec-1] o.j.a.c.controller.PaymentController     : 192.168.0.102,payment8001,http://192.168.0.102:8001,8001,null
+2020-03-14 20:29:35.803  INFO 14312 --- [nio-8001-exec-1] o.j.a.c.controller.PaymentController     : 192.168.0.102,payment8002,http://192.168.0.102:8002,8002,null

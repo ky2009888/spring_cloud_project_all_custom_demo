@@ -4,9 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.jliang.apps.cloud.entity.CommonResult;
 import org.jliang.apps.cloud.entity.Payment;
 import org.jliang.apps.cloud.service.PaymentService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Payment)表控制层
@@ -23,6 +27,16 @@ public class PaymentController {
      */
     @Resource
     private PaymentService paymentService;
+    /**
+     * 定义端口号
+     */
+    @Value("${server.port}")
+    private String port;
+    /**
+     * 服务发现和注册.
+     */
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     /**
      * 通过主键查询单条数据
@@ -36,9 +50,9 @@ public class PaymentController {
         Payment payment = this.paymentService.queryById(id);
         log.info("数据查询结束了");
         if (payment != null) {
-            return new CommonResult<Payment>(200, "查询成功", payment);
+            return new CommonResult<Payment>(200, "查询成功,port:" + port, payment);
         } else {
-            return new CommonResult<Payment>(200, "未查询到主键" + id + "对应的数据", payment);
+            return new CommonResult<Payment>(200, "未查询到主键" + id + "对应的数据,port:" + port, payment);
         }
     }
 
@@ -53,10 +67,29 @@ public class PaymentController {
         log.info("插入数据成功");
         Payment paymentResult = this.paymentService.insert(payment);
         if (paymentResult.getId() > 0) {
-            return new CommonResult<Payment>(200, "添加数据成功", paymentResult);
+            return new CommonResult<Payment>(200, "添加数据成功,port:" + port, paymentResult);
         } else {
-            return new CommonResult<Payment>(404, "添加数据失败", paymentResult);
+            return new CommonResult<Payment>(404, "添加数据失败,port:" + port, paymentResult);
         }
+    }
 
+    /**
+     * 返回服务发现的信息
+     *
+     * @return Object
+     */
+    @GetMapping("discoveryInfo")
+    public Object discoveryInfo() {
+        List<String> services = discoveryClient.getServices();
+        for (String element : services
+        ) {
+            log.info("****************element:{}", element);
+        }
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PROVIDER-PAYMENT");
+        for (ServiceInstance service : instances
+        ) {
+            log.info("{},{},{},{},{}", service.getHost(), service.getInstanceId(), service.getUri(), service.getPort(), service.getScheme());
+        }
+        return discoveryClient;
     }
 }
