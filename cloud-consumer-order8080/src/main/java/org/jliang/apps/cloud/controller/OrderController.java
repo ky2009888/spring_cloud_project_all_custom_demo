@@ -17,8 +17,14 @@ import javax.annotation.Resource;
 public class OrderController {
     /**
      * 定义订单服务请求的基础路径
+     * 单机版
      */
-    private static final String CLOUD_PROVIDER_PAYMENT_URL_BASE = "http://localhost:8001/payment/";
+    //private static final String CLOUD_PROVIDER_PAYMENT_URL_BASE = "http://localhost:8001/payment/";
+    /**
+     * 定义订单服务请求的基础路径
+     * 集群版
+     */
+    private static final String CLOUD_PROVIDER_PAYMENT_URL_BASE = "http://CLOUD-PROVIDER-PAYMENT/payment/";
     /**
      * 定义RestTemplate的句柄
      */

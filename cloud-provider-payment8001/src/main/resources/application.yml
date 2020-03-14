@@ -3,7 +3,7 @@ server:
   port: 8001
 spring:
   application:
-    name: cloud-provider-payment8001
+    name: cloud-provider-payment
   #数据源的配置
   datasource:
     username: root
