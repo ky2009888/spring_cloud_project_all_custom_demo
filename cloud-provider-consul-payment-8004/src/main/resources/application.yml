@@ -1,0 +1,25 @@
+#项目基础配置
+server:
+  port: 8004
+spring:
+  application:
+    name: cloud-provider-payment
+  #数据源的配置
+  datasource:
+    username: root
+    password: Qwer@#1234
+    url: jdbc:mysql://localhost:13306/mydb?useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  #consul客户端的配置
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+#mybatis的配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.jliang.apps.cloud.entity
+
