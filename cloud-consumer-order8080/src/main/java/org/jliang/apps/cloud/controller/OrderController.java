@@ -3,6 +3,7 @@ package org.jliang.apps.cloud.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.jliang.apps.cloud.entity.CommonResult;
 import org.jliang.apps.cloud.entity.Payment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,7 +51,24 @@ public class OrderController {
      */
     @GetMapping("selectOne")
     public CommonResult<Payment> selectOne(Long id) {
-        log.info("id:{}",id);
-        return restTemplate.getForObject(CLOUD_PROVIDER_PAYMENT_URL_BASE + "selectOne?id="+id,  CommonResult.class);
+        log.info("id:{}", id);
+        return restTemplate.getForObject(CLOUD_PROVIDER_PAYMENT_URL_BASE + "selectOne?id=" + id, CommonResult.class);
+    }
+
+    /**
+     * 通过主键查询支付单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("selectOneWithEntity")
+    public CommonResult<Payment> selectOneWithEntity(Long id) {
+        log.info("id:{}", id);
+        ResponseEntity<CommonResult> entity = restTemplate.getForEntity(CLOUD_PROVIDER_PAYMENT_URL_BASE + "selectOne?id=" + id, CommonResult.class);
+        if (entity.getStatusCode().is2xxSuccessful()) {
+            return entity.getBody();
+        } else {
+            return new CommonResult<Payment>(entity.getStatusCode().value(), "查询订单失败");
+        }
     }
 }
