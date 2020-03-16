@@ -1,0 +1,33 @@
+ribbo客户端默认的负载均衡的分发规则是轮询模式,如果要使用自定义的规则可以通过如下方式实现:
+1、自定义规则的实例化类:
+   注意这个类不要让包扫描注解@ComponentScan扫描到.
+   package org.jliang.apps.rules;
+
+   import com.netflix.loadbalancer.IRule;
+   import com.netflix.loadbalancer.RandomRule;
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.context.annotation.Configuration;
+
+   /**
+    * 自定义规则类
+    *
+    * @author Lenovo
+    */
+   @Configuration
+   public class MySelfRule {
+       /**
+        * 实例化rlue规则
+        *
+        * @return IRule
+        */
+       @Bean
+       public IRule myRule() {
+           //定义为随机分配模式
+           return new RandomRule();
+       }
+   }
+2、指定这个规则
+   在spring boot项目中的启动类中指定：
+   @RibbonClient(name = "CLOUD-PROVIDER-PAYMENT", configuration = MySelfRule.class)
+   * name：表示要访问的订单支付服务
+   * configuration：定义访问的规则
