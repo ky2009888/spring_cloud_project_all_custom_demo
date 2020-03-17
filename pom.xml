@@ -18,6 +18,7 @@
         <module>cloud-consumer-order80-consul</module>
         <module>cloud-consumer-order-custom-rule-80</module>
         <module>cloud-provider-payment8012</module>
+        <module>cloud-consumer-order80-openfeign</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->

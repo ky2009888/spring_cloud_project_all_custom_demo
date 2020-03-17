@@ -17,3 +17,10 @@ eureka:
     instance-id: order80
     #ip地址显示
     prefer-ip-address: true
+#设置openfeign的超时时间
+feign:
+  client:
+    config:
+      remote-service:
+        connectTimeout: 2000
+        readTimeout: 2000

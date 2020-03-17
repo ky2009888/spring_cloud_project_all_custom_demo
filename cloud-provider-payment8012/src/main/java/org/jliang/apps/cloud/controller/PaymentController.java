@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * (Payment)表控制层
@@ -43,11 +44,23 @@ public class PaymentController {
     public CommonResult<Payment> selectOne(Long id) {
         log.info("查询数据成功");
         Payment payment = this.paymentService.queryById(id);
+        //timeOutShow();
         log.info("数据查询结束了");
         if (payment != null) {
             return new CommonResult<Payment>(200, "查询成功,port:" + port, payment);
         } else {
             return new CommonResult<Payment>(200, "未查询到主键" + id + "对应的数据,port:" + port, payment);
+        }
+    }
+
+    /**
+     * 请求超时的方法
+     */
+    private void timeOutShow() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            log.error("请求超时了:{}", e);
         }
     }
 
