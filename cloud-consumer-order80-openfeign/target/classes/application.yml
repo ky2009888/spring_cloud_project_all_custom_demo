@@ -24,3 +24,6 @@ feign:
       remote-service:
         connectTimeout: 2000
         readTimeout: 2000
+logging:
+  level:
+    org.jliang.apps.cloud.service.PaymentFeignService: debug
