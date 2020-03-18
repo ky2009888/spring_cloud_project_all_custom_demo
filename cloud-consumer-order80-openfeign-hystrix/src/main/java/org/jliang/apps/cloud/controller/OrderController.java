@@ -1,5 +1,6 @@
 package org.jliang.apps.cloud.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("order")
 @Slf4j
+@DefaultProperties(defaultFallback = "selectOneWithFeignHBackupGlobal")
 public class OrderController {
     /**
      * 定义订单服务请求的基础路径
@@ -51,11 +53,20 @@ public class OrderController {
      * @return 单条数据
      */
     @GetMapping("selectOneWithFeign")
+    @HystrixCommand
     public CommonResult<Payment> selectOneWithFeign(Long id) {
         log.info("selectOneWithFeign->id:{}", id);
         return paymentFeignService.selectOne(id);
     }
-
+    /**
+     * 容错的时候使用的方法
+     *
+     * @return CommonResult<Payment>
+     */
+    public CommonResult<Payment> selectOneWithFeignHBackupGlobal() {
+        log.info("服务器繁忙,port:80----》消费端");
+        return new CommonResult<Payment>(500, "全局方法:服务器繁忙,port:80", new Payment());
+    }
     /**
      * 通过主键查询支付单条数据
      *
@@ -84,7 +95,7 @@ public class OrderController {
      */
     public CommonResult<Payment> selectOneWithFeignHBackup(Long id) {
         log.info("服务器繁忙,port:80----》消费端");
-        return new CommonResult<Payment>(500, "服务器繁忙,port:80", new Payment());
+        return new CommonResult<Payment>(500, "定制方法:服务器繁忙,port:80", new Payment());
     }
 
     /**
