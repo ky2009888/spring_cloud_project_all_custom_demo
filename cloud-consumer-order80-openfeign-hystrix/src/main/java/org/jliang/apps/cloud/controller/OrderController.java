@@ -1,5 +1,7 @@
 package org.jliang.apps.cloud.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.jliang.apps.cloud.entity.CommonResult;
 import org.jliang.apps.cloud.entity.Payment;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Lenovo
@@ -51,6 +54,37 @@ public class OrderController {
     public CommonResult<Payment> selectOneWithFeign(Long id) {
         log.info("selectOneWithFeign->id:{}", id);
         return paymentFeignService.selectOne(id);
+    }
+
+    /**
+     * 通过主键查询支付单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("selectOneWithFeignH")
+    @HystrixCommand(fallbackMethod = "selectOneWithFeignHBackup", groupKey = "selectOneBackupThread", threadPoolKey = "selectOneBackupThreadPoolKey",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")})
+    public CommonResult<Payment> selectOneWithFeignH(Long id) {
+        log.info("selectOneWithFeign->id:{}", id);
+        try {
+            TimeUnit.SECONDS.sleep(4);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return paymentFeignService.selectOne(id);
+    }
+
+    /**
+     * 容错的时候使用的方法
+     *
+     * @param id 使用ID
+     * @return CommonResult<Payment>
+     */
+    public CommonResult<Payment> selectOneWithFeignHBackup(Long id) {
+        log.info("服务器繁忙,port:80----》消费端");
+        return new CommonResult<Payment>(500, "服务器繁忙,port:80", new Payment());
     }
 
     /**
