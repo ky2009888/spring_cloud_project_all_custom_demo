@@ -1,5 +1,6 @@
 package org.jliang.apps.cloud.conrtoller;
 
+import cn.hutool.core.util.IdUtil;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +53,7 @@ public class PaymentController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    @HystrixCommand(fallbackMethod = "selectOneBackup",groupKey = "selectOneBackupThread",threadPoolKey = "selectOneBackupThreadPoolKey",
+    @HystrixCommand(fallbackMethod = "selectOneBackup", groupKey = "selectOneBackupThread", threadPoolKey = "selectOneBackupThreadPoolKey",
             commandProperties = {
                     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")})
     public CommonResult<Payment> selectOne(Long id) {
@@ -123,5 +124,38 @@ public class PaymentController {
             log.info("{},{},{},{},{}", service.getHost(), service.getInstanceId(), service.getUri(), service.getPort(), service.getScheme());
         }
         return discoveryClient;
+    }
+
+    /**
+     * 熔断的演示方法
+     * 相关的参数的来源类:
+     * @since com.netflix.hystrix.HystrixCommandProperties
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreakerFallback",
+            commandProperties = {
+                    @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+                    @HystrixProperty(name = "circuitBreaker.RequestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"),
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"),
+            })
+    @GetMapping("paymentCircuitBreaker")
+    public CommonResult<Payment> paymentCircuitBreaker(Integer id) {
+        if (id < 0) {
+            throw new RuntimeException("*****id 不能为负数");
+        }
+        String serialNumber = IdUtil.simpleUUID();
+        Payment payment = new Payment();
+        payment.setSerial(serialNumber);
+        if (id > 0) {
+            return new CommonResult<Payment>(200, "添加数据成功,port:" + port, payment);
+        } else {
+            return new CommonResult<Payment>(404, "添加数据失败,port:" + port, payment);
+        }
+    }
+
+    public CommonResult<Payment> paymentCircuitBreakerFallback(Integer id) {
+        return new CommonResult<Payment>(404, "服务熔断,port:" + port, new Payment());
     }
 }
