@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Lenovo
  */
 @Component("paymentFeignService")
-@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT")
+@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT", fallback = PaymentFeignServiceImpl.class)
 public interface PaymentFeignService {
 
     /**
      * 通过主键查询单条数据
      * 当使用feign传参数的时候,需要加上@RequestParam注解,否则对方服务无法识别参数
+     *
      * @param id 主键
      * @return 单条数据
      */
