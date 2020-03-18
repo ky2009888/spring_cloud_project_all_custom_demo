@@ -135,9 +135,13 @@ public class PaymentController {
      */
     @HystrixCommand(fallbackMethod = "paymentCircuitBreakerFallback",
             commandProperties = {
+                    //是否开启断路器
                     @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+                    //请求次数
                     @HystrixProperty(name = "circuitBreaker.RequestVolumeThreshold", value = "10"),
+                    //时间窗口期
                     @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"),
+                    //失败率达到多少后跳闸
                     @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"),
             })
     @GetMapping("paymentCircuitBreaker")
