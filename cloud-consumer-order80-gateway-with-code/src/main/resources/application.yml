@@ -1,0 +1,29 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: cloud-consumer-order80-gateway
+  cloud:
+    gateway:
+      routes:
+        #路由的名字，要求唯一
+        - id: payment_route
+          #匹配后提供服务的地址
+          uri: http://localhost:8001
+          #断言，提供服务的路由
+          predicates:
+            - Path=/payment/**
+#eueka客户端的配置
+eureka:
+  client:
+    #表示当前项目要注册到eureka server上面
+    fetch-registry: true
+    #是否抓取已注册的信息，true表示抓取
+    fetchRegistry: true
+    #eureka server的地址
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  instance:
+    instance-id: order80
+    #ip地址显示
+    prefer-ip-address: true

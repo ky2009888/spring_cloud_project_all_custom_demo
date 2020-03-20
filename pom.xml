@@ -22,6 +22,7 @@
         <module>cloud-provider-payment-hystrix-8004</module>
         <module>cloud-consumer-order80-openfeign-hystrix</module>
         <module>cloud-consumer-order80-gateway</module>
+        <module>cloud-consumer-order80-gateway-with-code</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->
