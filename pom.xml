@@ -23,6 +23,7 @@
         <module>cloud-consumer-order80-openfeign-hystrix</module>
         <module>cloud-consumer-order80-gateway</module>
         <module>cloud-consumer-order80-gateway-with-code</module>
+        <module>cloud-consumer-order80-gateway-dynamic</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->
