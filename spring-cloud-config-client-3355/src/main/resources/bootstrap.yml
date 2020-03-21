@@ -1,18 +1,14 @@
 server:
-  port: 3344
+  port: 3355
 spring:
   application:
-    name: spring-cloud-config-center-3344
+    name: spring-cloud-config-center-3355
   cloud:
     config:
-      server:
-        git:
-          uri: https://github.com/ky2009888/spring-cloud-config-demo02.git
-          search-paths:
-            - spring-cloud-config-demo02
-          password: Qwer@#1234
-          username: ky2009888
       label: master
+      name: config
+      profile: dev
+      uri: http://localhost:3344
 #eueka客户端的配置
 eureka:
   client:
@@ -27,4 +23,3 @@ eureka:
     instance-id: order80
     #ip地址显示
     prefer-ip-address: true
-

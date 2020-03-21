@@ -25,6 +25,7 @@
         <module>cloud-consumer-order80-gateway-with-code</module>
         <module>cloud-consumer-order80-gateway-dynamic</module>
         <module>spring-cloud-config-center-3344</module>
+        <module>spring-cloud-config-client-3355</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->
