@@ -1,0 +1,6 @@
+1、全局刷新
+首先执行我:
+curl -X POST "http://localhost:3344/actuator/bus-refresh"
+然后子项目的配置文件才会被修改
+2、定点刷新,指定某台机器的端口号就可以实现定点刷新
+curl -X POST "http://localhost:3344/actuator/bus-refresh/config-client:3355"
