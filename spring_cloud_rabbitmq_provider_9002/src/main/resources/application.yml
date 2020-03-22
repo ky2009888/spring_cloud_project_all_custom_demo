@@ -1,0 +1,36 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: spring_cloud_rabbitmq_provider_9002
+  cloud:
+    stream:
+      binders:
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        input:
+          destination: studyExchange
+          content-type: application/json
+           #binder: defaultRabbit
+#eueka客户端的配置
+eureka:
+  client:
+    #表示当前项目要注册到eureka server上面
+    fetch-registry: true
+    #是否抓取已注册的信息，true表示抓取
+    fetchRegistry: true
+    #eureka server的地址
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  instance:
+    instance-id: order80
+    #ip地址显示
+    prefer-ip-address: true
