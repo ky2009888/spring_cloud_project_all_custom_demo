@@ -30,6 +30,8 @@
         <module>spring_cloud_rabbitmq_provider_9001</module>
         <module>spring_cloud_rabbitmq_provider_9002</module>
         <module>spring_cloud_rabbitmq_provider_9003</module>
+        <module>spring_cloud_payment_nacos_provider_9005</module>
+        <module>pring_cloud_payment_nacos_provider_9006</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->
