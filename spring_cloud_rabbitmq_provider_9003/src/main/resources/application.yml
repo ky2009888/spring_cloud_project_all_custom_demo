@@ -19,7 +19,7 @@ spring:
         input:
           destination: studyExchange
           content-type: application/json
-           #binder: defaultRabbit
+          group: GA
 #eueka客户端的配置
 eureka:
   client:
