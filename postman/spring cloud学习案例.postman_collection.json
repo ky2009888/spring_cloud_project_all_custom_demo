@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "8fd3b05d-a77a-407f-85ce-cffbda7c2e43",
+		"name": "spring cloud学习案例",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "根据支付ID查询",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/payment/selectOne?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"payment",
+						"selectOne"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "支付服务相关的请求"
+			},
+			"response": []
+		},
+		{
+			"name": "保存支付记录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/payment/addPayment?serial=202003131148",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"payment",
+						"addPayment"
+					],
+					"query": [
+						{
+							"key": "serial",
+							"value": "202003131148"
+						}
+					]
+				},
+				"description": "保存支付记录"
+			},
+			"response": []
+		},
+		{
+			"name": "订单支付",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/order/orderPay?serial=123456895544123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"order",
+						"orderPay"
+					],
+					"query": [
+						{
+							"key": "serial",
+							"value": "123456895544123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "支付订单查询",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/order/selectOne?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"order",
+						"selectOne"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过feign订单支付查询-定制方法",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "通过feign订单支付查询-全局方法",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

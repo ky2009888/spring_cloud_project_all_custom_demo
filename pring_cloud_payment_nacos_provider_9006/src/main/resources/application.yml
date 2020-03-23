@@ -3,7 +3,7 @@ server:
   port: 9006
 spring:
   application:
-    name: pring_cloud_payment_nacos_provider_9006
+    name: spring-cloud-payment-nacos-provider
   #数据源的配置
   datasource:
     username: root

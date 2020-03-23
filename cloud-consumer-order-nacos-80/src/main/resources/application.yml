@@ -3,10 +3,10 @@ server:
 spring:
   application:
     name: cloud-consumer-order-nacos-80
-#nacos客户端的配置
+  #nacos客户端的配置
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
 service-url:
-  nacos-user-service: http://pring_cloud_payment_nacos_provider
+  nacos-user-service: http://spring-cloud-payment-nacos-provider
