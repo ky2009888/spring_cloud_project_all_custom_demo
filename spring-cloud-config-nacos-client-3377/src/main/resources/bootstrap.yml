@@ -10,6 +10,7 @@ spring:
       config:
         server-addr: localhost:8848 # 配置中心
         file-extension: yaml
+        group: DEFAULT_GROUP #默认的分组
 #${spring.application.name}-${spring.profile.active}-${spring.cloud.nacos.config.file-extension}
 
 
