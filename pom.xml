@@ -35,6 +35,7 @@
         <module>cloud-consumer-order-nacos-80</module>
         <module>spring-cloud-config-nacos-client-3377</module>
         <module>spring-cloud-sentinel-service-8401</module>
+        <module>cloud-common-utils</module>
     </modules>
     <packaging>pom</packaging>
     <!--指定统一的jar包版本-->
